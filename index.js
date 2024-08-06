@@ -1,34 +1,34 @@
 var rs = require('readline-sync');
 
-function calculate(numbers) {
-  var result = rs.question('What is the operation you wish to perform? ');
-  if (result === 'add') {
-    var result = numbers[0] + numbers[1];
-  } else if (result === 'subtract') {
-    var result = numbers[0] - numbers[1];
-  } else if (result === 'multiply') {
-    var result = numbers[0] * numbers[1];
-  } else if (result === 'divide') {
-    var result = numbers[0] / numbers[1];
-  } else {
-    console.log('Invalid Operation');
-
-    calculate(numbers);
-  }
-  console.log('The result is', result);
-}
 var numbers = [];
 
-var calculation = Number(
-  rs.questionInt('What is the first number of the calculation? ')
+function total(num1, num2) {
+  if (whatOp === 'add') {
+    return num1 + num2;
+  } else if (whatOp === 'subtract') {
+    return num1 - num2;
+  } else if (whatOp === 'multiply') {
+    return num1 * num2;
+  } else if (whatOp === 'divide') {
+    return num1 / num2;
+  }
+}
+
+var whatOp = rs.question(
+  'What operation would you like to perform? ',
+  { limit: ['add', 'subtract', 'multiply', 'divide'] },
+  { limitMessage: 'Please enter a valid operation.' }
 );
 
-numbers.push(calculation);
+var num1 = rs.questionInt('What is your first number: ', {
+  limitMessage: 'Please enter a valid number.',
+});
+numbers.push(num1);
+var num2 = rs.questionInt('What is your second number: ', {
+  limitMessage: 'Please enter a valid number.',
+});
+numbers.push(num2);
 
-var calculationTwo = Number(
-  rs.questionInt('What is the second number of the calculation? ')
-);
+total = total(num1, num2);
 
-numbers.push(calculationTwo);
-
-calculate(numbers);
+console.log('The total is ' + total + '.');
